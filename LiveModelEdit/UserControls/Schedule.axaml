@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:LiveModelEdit.ViewModels"
+             xmlns:userControls="clr-namespace:LiveModelEdit.UserControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LiveModelEdit.UserControls.Schedule">
+    <Design.DataContext>
+        <viewModels:ScheduleViewModel />
+    </Design.DataContext>
+    <DockPanel>
+        <ItemsControl DockPanel.Dock="Left" Items="{Binding Schedule.Periods}" Margin="10">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.DataTemplates>
+                <DataTemplate>
+                    <Button Command="{Binding $parent[userControls:Schedule].DataContext.SelectPeriodCommand}"
+                            CommandParameter="{Binding}" HorizontalAlignment="Stretch" Margin="5">
+                        <StackPanel>
+                            <TextBlock IsVisible="{Binding IsInfinite}">IsInfinite</TextBlock>
+                            <TextBlock Text="{Binding Duration}" />
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.DataTemplates>
+        </ItemsControl>
+        <Border DockPanel.Dock="Left" Width="1" Background="Gray" />
+        <StackPanel Margin="10">
+            <CheckBox IsChecked="{Binding IsInfinite}">IsInfinite</CheckBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock> Hours : </TextBlock>
+                <NumericUpDown Value="{Binding HoursPart}" ParsingNumberStyle="Integer"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock> Minutes : </TextBlock>
+                <NumericUpDown Value="{Binding MinutesPart}" ParsingNumberStyle="Integer"/>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+
+</UserControl>
