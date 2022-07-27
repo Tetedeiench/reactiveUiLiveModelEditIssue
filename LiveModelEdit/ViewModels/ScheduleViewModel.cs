@@ -4,7 +4,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using LiveModelEdit.Models;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 
 namespace LiveModelEdit.ViewModels;
 
@@ -13,18 +12,38 @@ public class ScheduleViewModel : ViewModelBase
     private readonly Schedule _schedule;
 
     public Schedule Schedule => _schedule;
-    
-    [Reactive]
-    public SchedulePeriod Period { get; set; }
-    
-    [Reactive]
-    public bool IsInfinite { get; set; }
-    
-    [Reactive]
-    public int HoursPart { get; set; }
-    
-    [Reactive]
-    public int MinutesPart { get; set; }
+
+    private SchedulePeriod _period;
+
+    public SchedulePeriod Period
+    {
+        get => _period;
+        set => this.RaiseAndSetIfChanged(ref _period, value);
+    }
+
+    private bool _isInfinite;
+
+    public bool IsInfinite
+    {
+        get => _isInfinite;
+        set => this.RaiseAndSetIfChanged(ref _isInfinite, value);
+    }
+
+    private int _hoursPart;
+
+    public int HoursPart
+    {
+        get => _hoursPart;
+        set => this.RaiseAndSetIfChanged(ref _hoursPart, value);
+    }
+
+    private int _minutesPart;
+
+    public int MinutesPart
+    {
+        get => _minutesPart;
+        set => this.RaiseAndSetIfChanged(ref _minutesPart, value);
+    }
     
     public ReactiveCommand<SchedulePeriod, Unit> SelectPeriodCommand { get; }
 
